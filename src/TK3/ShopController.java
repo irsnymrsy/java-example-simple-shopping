@@ -184,7 +184,82 @@ public class ShopController extends Item {
     }
 
     private void updateProduk() {
+        Scanner input = new Scanner(System.in);
+        boolean repeat = true;
+        System.out.println("                     Update Produk                      ");
+        System.out.print("Silahkan input nama produk yang akan diupdate :");
+        String search = input.nextLine();
+        while (repeat) {
+            boolean isExist = false;
+            Item item = null;
+            for (Item i : cart) {
+                boolean exist = i.nama.equals(search);
+                if (exist) {
+                    isExist = exist;
+                    item = i;
+                    break;
+                }
+            }
+            if (isExist) {
+                System.out.println("Silahkan input jumalah produk yang baru: ");
+                System.out.print("Jumlah: ");
+                int qty = input.nextInt();
 
+                System.out.println("Apakah Anda yakin ingin mengubah produk ini? [Ya | Tidak]");
+                System.out.print("Pilih: ");
+                Scanner input2 = new Scanner(System.in);
+                String decision = input2.nextLine();
+                switch(decision){
+                    case "Ya":
+                    case "ya":
+                        item.qty = qty;
+                        System.out.println("Produk berhasil diupdate");
+                        repeat = false;
+                        break;
+                    case "Tidak":
+                    case "tidak":
+                        repeat = false;
+                        break;
+                    default :
+                        System.out.println("Silahkan ikuti default value [Ya | Tidak] ketika input.");
+                        System.out.println(" ");
+                        System.out.println("Apakah Anda yakin ingin mengubah produk ini? [Ya | Tidak]");
+                        System.out.print("Pilih: ");
+                        boolean repeat2 = true;
+
+                        while (repeat2)
+                        {
+                            decision = input2.nextLine();
+                            switch (decision)
+                            {
+                                case "Ya":
+                                case "ya":
+                                    item.qty = qty;
+                                    System.out.println("Produk berhasil diupdate");
+                                    repeat2 = false;
+                                    repeat = false;
+                                    break;
+                                case "Tidak":
+                                case "tidak":
+                                    repeat2 = false;
+                                    repeat = false;
+                                    break;
+                                default:
+                                    System.out.println("Silahkan ikuti default value [Ya | Tidak] ketika input.");
+                                    System.out.println(" ");
+                                    System.out.println("Apakah Anda yakin ingin mengubah produk ini? [Ya | Tidak]");
+                                    System.out.print("Pilih: ");
+                                    repeat = true;
+                            }
+                        }
+                        break;
+                }
+            } else {
+                System.out.println("Produk yang dicari tidak ada");
+                repeat = false;
+                break;
+            }
+        }
     }
 
     private void lihatProduk() {
